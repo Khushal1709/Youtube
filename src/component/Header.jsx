@@ -1,63 +1,52 @@
-import { useState } from "react";
-import { Link } from 'react-router-dom';
-import logo2 from "../image/logo2.png"
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faShoppingBag, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import img1 from "../image/logo.png";
+import img2 from "../image/R.png";
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  return (
-    <header className="bg-white py-4 w-[90%] mx-auto text-lg">
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <div className="flex items-center space-x-4">
-          <div className="text-2xl font-bold space-x-16"><></><Link to="/"><img src={logo2} alt="JobJod" /></Link></div>
-          <nav className="hidden md:flex ml-10 space-x-6">
-            <Link to="/JobListingPage" className="text-black-800 hover:text-black">
-              Find Jobs
-            </Link>
-            <a href="##" className=" text-black-800 hover:text-black">
-              Browse Company
-            </a>
-            
-          </nav>
-        </div>
-        <div className="hidden md:flex items-center space-x-4">
-        <Link to="/JobListingPage" className="text-gray-600 hover:text-black">
-            Hire Now
-            </Link>
-          {/* <button className="bg-black text-white px-4 py-2 rounded-full"> */}
-          <button className="bg-black text-white font-bold py-2 px-6 items-center text-center rounded-full  focus:outline-none focus:shadow-outline">
-          <Link to="/LoginPage" className="text-sm text-black-500 ">Login / Signup</Link>
-          </button>
-          
-          {/* </button> */}
-        </div>
-        <button
-          className="md:hidden text-gray-600 focus:outline-none"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <svg
-            width="30"
-            height="25"
-            viewBox="0 0 30 25"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect width="30" height="5" rx="2" fill="#000" />
-            <rect y="10" width="30" height="5" rx="2" fill="#000" />
-            <rect y="20" width="30" height="5" rx="2" fill="#000" />
-          </svg>
-        </button>
-      </div>
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white py-4">
-          <nav className="flex flex-col space-y-4 px-4">
-            <Link to="/JobListingPage" > Find Jobs</Link>
-            <Link to="/" > Browse Company</Link>
-            <Link to="/">Hire Now</Link>
-            <Link to="/LoginPage"><button className="bg-black text-white px-4 py-2 rounded-full">Login/Signup </button></Link>
-          </nav>
+  return (
+    <header className="bg-white py-4">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center">
+            <img src={img1} alt="R" className="h-6 md:h-7 mb-3 mr-2 md:mr-4" />
+            <img src={img2} alt="RIYANSH" className="h-6 md:h-8" />
+          </div>
+
+          {/* Desktop Icons */}
+          <div className="hidden md:flex items-center space-x-6">
+            <FontAwesomeIcon icon={faSearch} className="text-gray-600 hover:text-gray-800 cursor-pointer" />
+            <FontAwesomeIcon icon={faShoppingBag} className="text-gray-600 hover:text-gray-800 cursor-pointer" />
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button onClick={toggleMenu} className="text-gray-600 hover:text-gray-800">
+              <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
+            </button>
+          </div>
         </div>
-      )}
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden mt-4">
+            <div className="flex flex-col space-y-4">
+              <a href="##" className="text-gray-600 hover:text-gray-800">Search</a>
+              <a href="##" className="text-gray-600 hover:text-gray-800">Cart</a>
+              {/* Add more menu items as needed */}
+            </div>
+          </div>
+        )}
+      </div>
+      <hr className="border-gray-200 mt-4" />
     </header>
   );
 };
